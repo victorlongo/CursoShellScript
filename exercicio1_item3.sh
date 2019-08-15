@@ -15,6 +15,8 @@
 # 	*Se não existir, retorne o exit code 1
 #	*Se existir, retorne exit 0
 
+ls /home/$1 > /dev/null 2>&1 || { echo "Usuário Inexistente" ; exit 1; }
+
 echo "==========================================================================="
 echo "Relatório do usuário: " $1
 echo -n "UID: "; grep $1 /etc/passwd | cut -d":" -f"3"
@@ -23,8 +25,5 @@ echo ""
 echo -n "Total Usado no /home/$1: "; du -h /home/$1 | egrep ''/home/$1'$' | cut -f1
 echo ""
 echo "Último Login: "; lastlog -u $1
-RETURN_CODE=$?
 echo "==========================================================================="
-echo ""
-exit $RETURN_CODE
-
+exit 0
